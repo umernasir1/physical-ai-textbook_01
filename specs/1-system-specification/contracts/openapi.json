@@ -1,0 +1,57 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "RAG Chatbot API",
+    "version": "1.0.0",
+    "description": "API for the AI-Native Textbook RAG chatbot."
+  },
+  "paths": {
+    "/api/v1/chat": {
+      "post": {
+        "summary": "Get an answer from the RAG chatbot",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "The user's question about the textbook content."
+                  },
+                  "context": {
+                    "type": "string",
+                    "description": "Optional: A specific snippet of text selected by the user to constrain the answer."
+                  }
+                },
+                "required": ["query"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A successful response from the chatbot.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "answer": {
+                      "type": "string",
+                      "description": "The chatbot's answer to the user's query."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error. Could not process the request."
+          }
+        }
+      }
+    }
+  }
+}
