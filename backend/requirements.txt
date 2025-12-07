@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+qdrant-client
+openai
+python-jose
+passlib
+psycopg2-binary
+pydantic-settings
+langchain
+langchain-openai
+langchain-community

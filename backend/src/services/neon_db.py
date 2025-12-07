@@ -1,29 +1,18 @@
-import psycopg2
-from ..core.config import settings
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
-def get_db_connection():
-    """
-    Establishes a connection to the Neon Postgres database.
-    """
+from core.config import settings
+
+DATABASE_URL = settings.NEON_DATABASE_URL
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
     try:
-        conn = psycopg2.connect(settings.NEON_DATABASE_URL)
-        return conn
-    except Exception as e:
-        print(f"Error connecting to the database: {e}")
-        raise
-
-
-if __name__ == "__main__":
-    # This block is for testing the connection directly
-    print("Attempting to connect to the Neon Postgres database...")
-    try:
-        conn = get_db_connection()
-        print("Connection successful!")
-        # You can add a simple query here to test further
-        # cursor = conn.cursor()
-        # cursor.execute("SELECT version();")
-        # print(f"PostgreSQL version: {cursor.fetchone()}")
-        conn.close()
-        print("Connection closed.")
-    except Exception as e:
-        print(f"Failed to connect: {e}")
+        yield db
+    finally:
+        db.close()
