@@ -1,100 +1,243 @@
-# Physical AI Textbook Project
+# Physical AI & Humanoid Robotics Textbook
 
-This project aims to create an AI-Native Textbook for Physical AI and Humanoid Robotics. It consists of a Docusaurus-based frontend for content delivery and a FastAPI backend providing RAG chatbot, personalization, and translation services.
+**🤖 An AI-Native Interactive Textbook for Learning Physical AI and Humanoid Robotics**
 
-## Project Structure
+This hackathon project delivers a comprehensive, interactive textbook on Physical AI built with Docusaurus, featuring an embedded RAG chatbot powered by OpenAI, Qdrant, and Neon Postgres.
 
--   `frontend/`: Docusaurus-based textbook content, user authentication UI, and translation features.
--   `backend/`: FastAPI application for the RAG chatbot, authentication, personalization logic, and translation services.
--   `specs/`: Detailed system specifications, data models, and quickstart guide.
+[![Deploy to GitHub Pages](https://github.com/umernasir1/physical-ai-textbook/actions/workflows/deploy.yml/badge.svg)](https://github.com/umernasir1/physical-ai-textbook/actions/workflows/deploy.yml)
 
-## Quickstart
+## 🎯 Features
 
-This guide provides the basic steps to set up and run the frontend and backend components of this project locally.
+### Core Features (100 points)
+- ✅ **Comprehensive Textbook**: 4 modules covering ROS 2, Gazebo/Unity, NVIDIA Isaac, and Vision-Language-Action
+- ✅ **RAG Chatbot**: Intelligent question-answering using OpenAI GPT + vector search
+- ✅ **GitHub Pages Deployment**: Automated CI/CD pipeline
+
+### Bonus Features (up to 200 points)
+- ✅ **Authentication**: Signup/signin with better-auth.com + background questionnaire
+- ✅ **Content Personalization**: Tailored content based on user software/hardware background
+- ✅ **Urdu Translation**: Translate chapters to Urdu on demand
+- 🚧 **Claude Code Subagents**: Reusable intelligence for development workflow
+
+## 📚 Course Content
+
+### Module 1: The Robotic Nervous System (ROS 2)
+- Introduction to Physical AI
+- ROS 2 Nodes, Topics, and Services
+- Python Agents and rclpy
+- URDF for Humanoids
+
+### Module 2: The Digital Twin (Gazebo & Unity)
+- Physics Simulation and Environment Building
+- High-Fidelity Rendering and Human-Robot Interaction
+- Simulating Sensors (LIDAR, Depth Cameras, IMUs)
+
+### Module 3: The AI-Robot Brain (NVIDIA Isaac™)
+- NVIDIA Isaac Sim: Photorealistic Simulation
+- Advanced Perception and Training
+- Isaac ROS: VSLAM and Navigation
+- Nav2: Path Planning for Bipedal Movement
+
+### Module 4: Vision-Language-Action (VLA)
+- The Convergence of LLMs and Robotics
+- Voice-to-Action with OpenAI Whisper
+- Cognitive Planning: Natural Language to ROS 2 Actions
+- Capstone Project: The Autonomous Humanoid
+
+## 🏗️ Project Structure
+
+```
+Hackaton/
+├── frontend/               # Docusaurus website
+│   ├── docs/              # Textbook content (Markdown)
+│   ├── src/
+│   │   ├── components/    # React components (Chatbot, Auth, Translator)
+│   │   ├── services/      # API clients
+│   │   └── theme/         # Docusaurus theme customizations
+│   └── docusaurus.config.js
+├── backend/               # FastAPI application
+│   ├── src/
+│   │   ├── api/v1/       # API endpoints (chat, auth, translation)
+│   │   ├── core/         # RAG pipeline, indexer, personalization
+│   │   ├── services/     # External service clients (Qdrant, OpenAI, Neon)
+│   │   └── models/       # Pydantic data models
+│   └── requirements.txt
+├── specs/                 # System specifications and planning docs
+└── .github/workflows/     # CI/CD automation
+
+```
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
--   Node.js (>=20.0) and npm (for the frontend)
--   Python 3.11+ and pip (for the backend)
--   Account credentials for Qdrant Cloud, Neon DB, and OpenAI.
+- **Node.js** ≥20.0 and npm
+- **Python** 3.11+
+- **API Keys**:
+  - OpenAI API key ([get one here](https://platform.openai.com/api-keys))
+  - Qdrant Cloud account ([free tier](https://cloud.qdrant.io/))
+  - Neon Postgres database ([create one](https://neon.tech/))
 
-### Setup
+### 1. Clone and Setup
 
-1.  **Clone the Repository**:
-    ```bash
-    git clone [repository-url]
-    cd [repository-name]
-    ```
+```bash
+cd Hackaton
 
-2.  **Configure Environment Variables**:
-    -   Create a `.env` file in the root directory.
-    -   Add the following keys with your credentials:
-        ```
-        OPENAI_API_KEY=your_openai_api_key
-        QDRANT_URL=your_qdrant_url
-        QDRANT_API_KEY=your_qdrant_api_key
-        NEON_DATABASE_URL=your_neon_database_url
-        SECRET_KEY=a_super_secret_key_for_jwt_signing
-        ```
-        *Note: The `SECRET_KEY` should be a long, randomly generated string. You can generate one using `openssl rand -hex 32`.*
+# Create .env file in both root and backend/
+cat > .env <<EOF
+OPENAI_API_KEY=your_openai_api_key_here
+QDRANT_URL=your_qdrant_url_here
+QDRANT_API_KEY=your_qdrant_api_key_here
+NEON_DATABASE_URL=your_neon_database_url_here
+SECRET_KEY=$(openssl rand -hex 32)
+EOF
 
-### Running the Backend (FastAPI)
+cp .env backend/.env
+```
 
-1.  **Navigate to the backend directory**:
-    ```bash
-    cd backend
-    ```
+### 2. Run Backend
 
-2.  **Install dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
+```bash
+cd backend
 
-3.  **Run the server**:
-    ```bash
-    uvicorn src.main:app --reload
-    ```
-    The API will be available at `http://127.0.0.1:8000`.
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-#### Backend API Features
+# Install dependencies
+pip install -r requirements.txt
 
--   **Authentication & User Management**:
-    -   `POST /v1/auth/signup`: Register a new user.
-    -   `POST /v1/auth/token`: Log in and receive an access token.
--   **Personalized RAG Chatbot**:
-    -   `POST /v1/chat/`: Interact with the chatbot, which provides personalized responses based on your user profile (requires authentication).
--   **Translation Service**:
-    -   `POST /v1/translation/translate`: Translate text to various languages.
+# Run FastAPI server
+uvicorn src.main:app --reload
+```
 
-### Running the Frontend (Docusaurus)
+Backend will start at `http://localhost:8000`
 
-1.  **Navigate to the frontend directory**:
-    ```bash
-    cd frontend
-    ```
+**On startup**, the backend automatically:
+1. Connects to Qdrant and creates the `textbook` collection
+2. Indexes all markdown files from `frontend/docs/`
+3. Generates embeddings using OpenAI `text-embedding-ada-002`
 
-2.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
+### 3. Run Frontend
 
-3.  **Run the development server**:
-    ```bash
-    npm start
-    ```
-    The Docusaurus website will be available at `http://localhost:3000`.
+```bash
+cd frontend
 
-#### Frontend UI Features
+# Install dependencies
+npm install
 
--   **Authentication UI**: Access login/signup via the `/auth` route. Successful authentication stores a token and enables personalized content.
--   **Personalized Content Display**: Authenticated users with profile data will see a message indicating personalized content on documentation pages.
--   **Translation UI**: A "Show Translator" button on documentation pages allows on-the-fly translation of page titles and descriptions.
+# Start development server
+npm start
+```
 
-## Building for Production
+Frontend will open at `http://localhost:3000`
 
--   **Frontend**: Run `npm run build` in the `frontend` directory. The output will be in the `frontend/build` directory.
--   **Backend**: The backend is a Python application that can be deployed using a production-grade server like Gunicorn behind a reverse proxy, typically in a containerized environment.
+## 🧪 Testing the Features
 
-## Further Documentation
+### Test RAG Chatbot
+1. Navigate to any documentation page
+2. Ask a question in the chatbot widget (e.g., "What is ROS 2?")
+3. The chatbot retrieves relevant content and generates an answer
 
-For more in-depth details on the system architecture, data models, and specific task implementations, please refer to the `specs/` directory.
+### Test Text Selection
+1. Select text on any page
+2. Ask a question about the selected text
+3. The chatbot will answer based only on that selection
+
+### Test Authentication
+1. Click "Sign In" and create an account
+2. Answer the software/hardware background questions
+3. Your responses are saved for personalization
+
+### Test Translation
+1. Click the "Translate to Urdu" button at the top of any chapter
+2. Content is translated using the translation API
+
+## 📦 Building for Production
+
+### Frontend (GitHub Pages)
+
+```bash
+cd frontend
+npm run build
+```
+
+The GitHub Actions workflow (`.github/workflows/deploy.yml`) automatically deploys to GitHub Pages on push to `main` or `master`.
+
+### Backend Deployment
+
+For production, deploy the FastAPI backend to:
+- **Railway** / **Render** / **Fly.io** (recommended for quick deployment)
+- **AWS ECS** / **Google Cloud Run** (containerized)
+- **DigitalOcean App Platform** (straightforward Python support)
+
+Update `frontend/src/services/chat_api.js` with your production backend URL.
+
+## 🔧 Configuration
+
+### Update GitHub Pages Settings
+
+Edit `frontend/docusaurus.config.js`:
+
+```javascript
+url: 'https://YOUR_GITHUB_USERNAME.github.io',
+baseUrl: '/YOUR_REPO_NAME/',
+organizationName: 'YOUR_GITHUB_USERNAME',
+projectName: 'YOUR_REPO_NAME',
+```
+
+### Environment Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `OPENAI_API_KEY` | OpenAI API key for embeddings and chat | `sk-proj-...` |
+| `QDRANT_URL` | Qdrant Cloud instance URL | `https://xxx.gcp.cloud.qdrant.io` |
+| `QDRANT_API_KEY` | Qdrant API key | `eyJhbG...` |
+| `NEON_DATABASE_URL` | Neon Postgres connection string | `postgresql+psycopg://...` |
+| `SECRET_KEY` | JWT signing secret (generate with `openssl rand -hex 32`) | Random 64-char hex |
+
+## 📖 API Documentation
+
+Once the backend is running, visit:
+- **Interactive API docs**: http://localhost:8000/docs
+- **Alternative docs**: http://localhost:8000/redoc
+
+### Key Endpoints
+
+- `POST /api/v1/chat` - Chat with RAG bot
+- `POST /api/v1/auth/signup` - Create account
+- `POST /api/v1/auth/token` - Login
+- `POST /api/v1/translation/translate` - Translate text
+
+## 🛠️ Development
+
+### Project Constitution
+
+See `.specify/memory/constitution.md` for:
+- Code quality standards
+- Testing requirements
+- Security guidelines
+- Performance targets
+
+### Specifications
+
+Detailed specs in `specs/1-system-specification/`:
+- `spec.md` - Feature requirements and user stories
+- `plan.md` - Technical architecture and design decisions
+- `tasks.md` - Implementation task breakdown
+- `data-model.md` - Database schemas and API contracts
+
+## 🤝 Contributing
+
+This is a hackathon submission project. For questions or suggestions:
+1. Check the `specs/` directory for design decisions
+2. Review the constitution for development guidelines
+3. Open an issue for bugs or feature requests
+
+## 📄 License
+
+This project is created for the Panaversity Physical AI Hackathon.
+
+---
+
+**Built with**: Docusaurus, FastAPI, OpenAI, Qdrant, Neon Postgres, better-auth.com

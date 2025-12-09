@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .api.v1 import router as api_router
+from .core.indexer import index_docs # Import index_docs
 
 app = FastAPI()
 
@@ -19,6 +20,12 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix="/api")
+
+@app.on_event("startup")
+async def startup_event():
+    print("Application startup: Indexing documents for RAG...")
+    index_docs()
+    print("Application startup: Document indexing complete.")
 
 @app.get("/")
 async def read_root():

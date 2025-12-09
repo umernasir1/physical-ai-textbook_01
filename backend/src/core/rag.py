@@ -1,6 +1,7 @@
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from ..services.openai import get_openai_client
 from ..services.qdrant import get_qdrant_client
+
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 def get_text_splitter():

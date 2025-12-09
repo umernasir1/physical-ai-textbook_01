@@ -1,28 +1,14 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
-from backend.src.services.translation import translate_text
+# src/api/v1/translation.py
+
+from fastapi import APIRouter, HTTPException
+from ...services.translation import translate_text  # absolute import
 
 router = APIRouter()
 
-
-class TranslateRequest(BaseModel):
-    text: str
-    target_language: str
-
-
-class TranslateResponse(BaseModel):
-    translated_text: str
-
-
-@router.post("/translate", response_model=TranslateResponse)
-async def translate_content(request: TranslateRequest):
-    """
-    Endpoint to translate text using the translation service.
-    """
-    translated = await translate_text(request.text, request.target_language)
-    return TranslateResponse(translated_text=translated["translated_text"])
-
-
-@router.get("/")
-async def read_translation_status():
-    return {"message": "Translation endpoint is ready."}
+@router.post("/translate")
+async def translate_text_endpoint(text: str, target_language: str):
+    try:
+        result = await translate_text(text, target_language)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
