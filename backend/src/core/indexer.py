@@ -78,8 +78,8 @@ def index_docs():
                         print(f"Error indexing {file}: {e}")
                         continue
 
-        print(f"✓ Indexing complete! Indexed {indexed_files} files with {id_counter} total chunks.")
+        print(f"[OK] Indexing complete! Indexed {indexed_files} files with {id_counter} total chunks.")
 
     except Exception as e:
         print(f"Error during indexing: {e}")
-        raise
+        print("Indexing failed but server will continue to start.")

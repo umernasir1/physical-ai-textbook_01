@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { useHistory } from '@docusaurus/router'; // Assuming Docusaurus router for navigation
+import { useHistory } from '@docusaurus/router';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
-const API_BASE_URL = process.env.BACKEND_API_URL || 'http://localhost:8000/v1'; // Fallback for local development
+const useApiBaseUrl = () => {
+  const { siteConfig } = useDocusaurusContext();
+  return siteConfig.customFields?.BACKEND_API_URL || 'http://localhost:8000/api/v1';
+};
 
 const Login = ({ switchToSignup }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const history = useHistory();
+  const API_BASE_URL = useApiBaseUrl();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,7 +39,7 @@ const Login = ({ switchToSignup }) => {
       localStorage.setItem('access_token', data.access_token);
       // Redirect or update global state to reflect logged-in status
       console.log('Login successful:', data);
-      history.push('/'); // Redirect to home or dashboard after login
+      history.push('/physical-ai-textbook/'); // Redirect to home or dashboard after login
     } catch (err) {
       setError(err.message);
       console.error('Login error:', err);
@@ -87,6 +92,7 @@ const Signup = ({ switchToLogin }) => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const history = useHistory();
+  const API_BASE_URL = useApiBaseUrl();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -116,7 +122,7 @@ const Signup = ({ switchToLogin }) => {
       localStorage.setItem('access_token', data.access_token);
       setSuccess(true);
       console.log('Signup successful:', data);
-      history.push('/'); // Redirect to home or dashboard after signup
+      history.push('/physical-ai-textbook/'); // Redirect to home or dashboard after signup
     } catch (err) {
       setError(err.message);
       console.error('Signup error:', err);

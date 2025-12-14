@@ -1,0 +1,70 @@
+.text-selection-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #14b8a6 0%, #a855f7 100%);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(20, 184, 166, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideInBounce 0.4s ease-out;
+  white-space: nowrap;
+}
+
+.text-selection-button:hover {
+  transform: translateX(-50%) translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(20, 184, 166, 0.5);
+}
+
+.text-selection-button:active {
+  transform: translateX(-50%) translateY(-2px) scale(0.98);
+}
+
+.button-icon {
+  font-size: 18px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.button-text {
+  letter-spacing: 0.3px;
+}
+
+@keyframes slideInBounce {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0.8);
+  }
+  60% {
+    transform: translateX(-50%) translateY(2px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .text-selection-button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .button-icon {
+    font-size: 16px;
+  }
+}

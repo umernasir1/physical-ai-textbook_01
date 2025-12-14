@@ -10,13 +10,14 @@
 
 ### 2. Backend Implementation ✓
 - ✅ FastAPI application with proper structure
-- ✅ RAG chatbot with OpenAI + Qdrant integration
+- ✅ RAG chatbot with Groq AI + Qdrant integration
 - ✅ Authentication system (better-auth compatible)
 - ✅ Translation service
 - ✅ Personalization logic
 - ✅ Document indexer with improved path handling
 - ✅ Updated `requirements.txt` with all dependencies
 - ✅ Fixed API response format to match frontend expectations
+- ✅ Switched from OpenAI to Groq for faster inference
 
 ### 3. Frontend Implementation ✓
 - ✅ Docusaurus setup with 4 module structure
@@ -199,7 +200,7 @@ Required:
 
 ### Core Features (100 points)
 - ✅ **Docusaurus Book** (40 pts): Comprehensive 4-module structure
-- ✅ **RAG Chatbot** (40 pts): OpenAI + Qdrant + Neon integration
+- ✅ **RAG Chatbot** (40 pts): Groq AI + Qdrant + Neon integration
 - ✅ **GitHub Pages Deployment** (20 pts): Automated CI/CD
 
 ### Bonus Features (Potential: 200 points)
@@ -226,9 +227,9 @@ pip install -r requirements.txt
 - Verify `QDRANT_URL` and `QDRANT_API_KEY` in `.env`
 - Check Qdrant Cloud console for cluster status
 
-**Issue: "OpenAI API key invalid"**
-- Verify `OPENAI_API_KEY` in `.env`
-- Check OpenAI dashboard for key status and usage limits
+**Issue: "Groq API key invalid"**
+- Verify `GROQ_API_KEY` in `.env`
+- Check Groq console for key status and usage limits
 
 ### Frontend Issues
 
@@ -307,7 +308,7 @@ You now have a **production-ready hackathon project** featuring:
 
 1. **AI-Native Textbook**: Interactive learning platform with comprehensive content
 2. **Intelligent RAG Chatbot**: Context-aware question answering using vector search
-3. **Modern Tech Stack**: FastAPI, Docusaurus, OpenAI, Qdrant, Neon
+3. **Modern Tech Stack**: FastAPI, Docusaurus, Groq AI, Qdrant, Neon
 4. **Bonus Features**: Auth, personalization, translation
 5. **Professional Documentation**: README, specs, constitution
 6. **Automated Deployment**: CI/CD pipeline for GitHub Pages

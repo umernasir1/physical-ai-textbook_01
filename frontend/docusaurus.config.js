@@ -27,7 +27,7 @@ const config = {
 
   // Add custom fields
   customFields: {
-    BACKEND_API_URL: process.env.BACKEND_API_URL || 'http://localhost:8000/v1',
+    BACKEND_API_URL: process.env.BACKEND_API_URL || 'http://localhost:8000/api/v1',
   },
 
   // GitHub pages deployment config.
@@ -88,9 +88,9 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'My Site',
+        title: 'Physical AI Textbook',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Physical AI Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -98,11 +98,12 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: '📚 Modules',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/blog', label: '📝 Blog', position: 'left'},
+          {to: '/auth', label: '🔐 Login', position: 'right'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/umernasir1/physical-ai-textbook',
             label: 'GitHub',
             position: 'right',
           },
@@ -112,11 +113,23 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Learning Resources',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Getting Started',
                 to: '/docs/intro',
+              },
+              {
+                label: 'ROS 2 Fundamentals',
+                to: '/docs/module1-ros2/introduction-to-ros2',
+              },
+              {
+                label: 'Digital Twin & Simulation',
+                to: '/docs/module2-digital-twin/physics-simulation-environment-building',
+              },
+              {
+                label: 'VLA Integration',
+                to: '/docs/module4-vla/llms-and-robotics-convergence',
               },
             ],
           },
@@ -124,34 +137,46 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'GitHub Discussions',
+                href: 'https://github.com/umernasir1/physical-ai-textbook/discussions',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Discord Community',
+                href: 'https://discord.gg/robotics',
               },
               {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
+                label: 'Twitter/X',
+                href: 'https://twitter.com/physical_ai',
+              },
+              {
+                label: 'LinkedIn',
+                href: 'https://linkedin.com/company/physical-ai',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'More Resources',
             items: [
               {
-                label: 'Blog',
+                label: 'Blog & Tutorials',
                 to: '/blog',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Project Showcase',
+                href: 'https://github.com/umernasir1/physical-ai-textbook/discussions/categories/show-and-tell',
+              },
+              {
+                label: 'Contribute',
+                href: 'https://github.com/umernasir1/physical-ai-textbook/blob/main/CONTRIBUTING.md',
+              },
+              {
+                label: 'Report Issues',
+                href: 'https://github.com/umernasir1/physical-ai-textbook/issues',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Textbook. Built with ❤️ and Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

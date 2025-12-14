@@ -2,6 +2,10 @@ from ..services.openai import get_openai_client
 from ..services.qdrant import get_qdrant_client
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from sentence_transformers import SentenceTransformer
+
+# Initialize embedding model (using open-source model for embeddings)
+embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
 
 def get_text_splitter():
@@ -13,27 +17,27 @@ def get_text_splitter():
 
 
 def get_embeddings(texts):
-    client = get_openai_client()
-    response = client.embeddings.create(input=texts, model="text-embedding-ada-002")
-    return [embedding.embedding for embedding in response.data]
+    """Generate embeddings using sentence-transformers (open-source)"""
+    embeddings = embedding_model.encode(texts, convert_to_numpy=True)
+    return embeddings.tolist()
 
 
 def rag_chain(query: str):
     qdrant_client = get_qdrant_client()
-    openai_client = get_openai_client()
+    groq_client = get_openai_client()  # Now returns Groq client
 
     query_embedding = get_embeddings([query])[0]
 
-    search_result = qdrant_client.search(
+    search_result = qdrant_client.query_points(
         collection_name="textbook",
-        query_vector=query_embedding,
+        query=query_embedding,
         limit=3,
-    )
+    ).points
 
     context = " ".join([hit.payload["text"] for hit in search_result])
 
-    response = openai_client.chat.completions.create(
-        model="gpt-3.5-turbo",
+    response = groq_client.chat.completions.create(
+        model="llama-3.3-70b-versatile",  # Groq's fast LLM model
         messages=[
             {
                 "role": "system",

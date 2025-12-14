@@ -2,7 +2,7 @@
 
 **🤖 An AI-Native Interactive Textbook for Learning Physical AI and Humanoid Robotics**
 
-This hackathon project delivers a comprehensive, interactive textbook on Physical AI built with Docusaurus, featuring an embedded RAG chatbot powered by OpenAI, Qdrant, and Neon Postgres.
+This hackathon project delivers a comprehensive, interactive textbook on Physical AI built with Docusaurus, featuring an embedded RAG chatbot powered by Groq AI, Qdrant, and Neon Postgres.
 
 [![Deploy to GitHub Pages](https://github.com/umernasir1/physical-ai-textbook/actions/workflows/deploy.yml/badge.svg)](https://github.com/umernasir1/physical-ai-textbook/actions/workflows/deploy.yml)
 
@@ -10,7 +10,7 @@ This hackathon project delivers a comprehensive, interactive textbook on Physica
 
 ### Core Features (100 points)
 - ✅ **Comprehensive Textbook**: 4 modules covering ROS 2, Gazebo/Unity, NVIDIA Isaac, and Vision-Language-Action
-- ✅ **RAG Chatbot**: Intelligent question-answering using OpenAI GPT + vector search
+- ✅ **RAG Chatbot**: Intelligent question-answering using Groq LLaMA 3.3 + vector search
 - ✅ **GitHub Pages Deployment**: Automated CI/CD pipeline
 
 ### Bonus Features (up to 200 points)
@@ -74,7 +74,7 @@ Hackaton/
 - **Node.js** ≥20.0 and npm
 - **Python** 3.11+
 - **API Keys**:
-  - OpenAI API key ([get one here](https://platform.openai.com/api-keys))
+  - Groq API key ([get one here](https://console.groq.com/keys))
   - Qdrant Cloud account ([free tier](https://cloud.qdrant.io/))
   - Neon Postgres database ([create one](https://neon.tech/))
 
@@ -85,7 +85,7 @@ cd Hackaton
 
 # Create .env file in both root and backend/
 cat > .env <<EOF
-OPENAI_API_KEY=your_openai_api_key_here
+GROQ_API_KEY=your_groq_api_key_here
 QDRANT_URL=your_qdrant_url_here
 QDRANT_API_KEY=your_qdrant_api_key_here
 NEON_DATABASE_URL=your_neon_database_url_here
@@ -116,7 +116,7 @@ Backend will start at `http://localhost:8000`
 **On startup**, the backend automatically:
 1. Connects to Qdrant and creates the `textbook` collection
 2. Indexes all markdown files from `frontend/docs/`
-3. Generates embeddings using OpenAI `text-embedding-ada-002`
+3. Generates embeddings using SentenceTransformers `all-MiniLM-L6-v2` (open-source model)
 
 ### 3. Run Frontend
 

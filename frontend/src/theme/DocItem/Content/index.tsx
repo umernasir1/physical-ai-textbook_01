@@ -1,4 +1,4 @@
-import React, {useState, type ReactNode} from 'react';
+import React, {useRef, type ReactNode} from 'react';
 import clsx from 'clsx';
 import {ThemeClassNames} from '@docusaurus/theme-common';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
@@ -6,7 +6,9 @@ import Heading from '@theme/Heading';
 import MDXContent from '@theme/MDXContent';
 import type {Props} from '@docusaurus/theme-DocItem/Content';
 import { useAuth } from '../../../components/AuthProvider';
-import Translator from '../../../components/Translator'; // Import Translator
+import { useTranslation } from '../../../components/TranslationProvider';
+import InlineTranslator from '../../../components/InlineTranslator';
+import styles from './TranslatedContent.module.css';
 
 /**
  Title can be declared inside md content or declared through
@@ -30,36 +32,42 @@ function useSyntheticTitle(): string | null {
 
 export default function DocItemContent({children}: Props): ReactNode {
   const { isAuthenticated, user } = useAuth();
+  const { isTranslated, translatedContent } = useTranslation();
   const syntheticTitle = useSyntheticTitle();
-  const { metadata } = useDoc(); // Access metadata for description
-  const [showTranslator, setShowTranslator] = useState(false); // State for Translator visibility
-
-  // Combine title and description for translation
-  const textToTranslate = [
-    syntheticTitle,
-    metadata.description,
-  ].filter(Boolean).join('\n\n'); // Filter out null/undefined and join
+  const contentRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={clsx(ThemeClassNames.docs.docMarkdown, 'markdown')}>
-      {syntheticTitle && (
-        <header>
-          <Heading as="h1">{syntheticTitle}</Heading>
-        </header>
-      )}
+    <>
+      <InlineTranslator contentRef={contentRef} />
 
-      {isAuthenticated && user && user.profile_data && (
-        <div style={{border: '1px solid blue', padding: '1rem', marginBottom: '1rem'}}>
-          Welcome back, {user.email}! This content is personalized for you based on your profile.
-        </div>
-      )}
+      <div
+        ref={contentRef}
+        className={clsx(ThemeClassNames.docs.docMarkdown, 'markdown')}
+      >
+        {!isTranslated ? (
+          <>
+            {syntheticTitle && (
+              <header>
+                <Heading as="h1">{syntheticTitle}</Heading>
+              </header>
+            )}
 
-      <button onClick={() => setShowTranslator(!showTranslator)} style={{marginBottom: '1rem'}}>
-        {showTranslator ? 'Hide Translator' : 'Show Translator'}
-      </button>
-      {showTranslator && <Translator textToTranslate={textToTranslate} />}
+            {isAuthenticated && user && user.profile_data && (
+              <div style={{border: '1px solid blue', padding: '1rem', marginBottom: '1rem'}}>
+                Welcome back, {user.email}! This content is personalized for you based on your profile.
+              </div>
+            )}
 
-      <MDXContent>{children}</MDXContent>
-    </div>
+            <MDXContent>{children}</MDXContent>
+          </>
+        ) : (
+          <div className={styles.translatedContent}>
+            {translatedContent.split('\n\n').map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 }

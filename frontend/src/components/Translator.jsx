@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import styles from './Translator.module.css';
 
 const Translator = ({ textToTranslate = "This is a placeholder text to be translated." }) => {
   const { siteConfig } = useDocusaurusContext();
@@ -31,7 +32,7 @@ const Translator = ({ textToTranslate = "This is a placeholder text to be transl
           // otherwise, you would include an Authorization header
         },
         body: JSON.stringify({
-          text: textToTranslate,
+          content: textToTranslate,
           target_language: targetLanguage,
         }),
       });
@@ -42,7 +43,7 @@ const Translator = ({ textToTranslate = "This is a placeholder text to be transl
       }
 
       const data = await response.json();
-      setTranslatedText(data.translated_text);
+      setTranslatedText(data.translated_content);
     } catch (err) {
       setError(err.message);
       console.error('Translation error:', err);
@@ -52,15 +53,15 @@ const Translator = ({ textToTranslate = "This is a placeholder text to be transl
   };
 
   return (
-    <div style={styles.container}>
+    <div className={styles.container}>
       <h3>Translate Content</h3>
-      <div style={styles.controls}>
-        <label htmlFor="language-select" style={styles.label}>Translate to:</label>
+      <div className={styles.controls}>
+        <label htmlFor="language-select" className={styles.label}>Translate to:</label>
         <select
           id="language-select"
           value={targetLanguage}
           onChange={(e) => setTargetLanguage(e.target.value)}
-          style={styles.select}
+          className={styles.select}
         >
           {languages.map((lang) => (
             <option key={lang.code} value={lang.code}>
@@ -68,65 +69,21 @@ const Translator = ({ textToTranslate = "This is a placeholder text to be transl
             </option>
           ))}
         </select>
-        <button onClick={handleTranslate} disabled={loading} style={styles.button}>
+        <button onClick={handleTranslate} disabled={loading} className={styles.button}>
           {loading ? 'Translating...' : 'Translate'}
         </button>
       </div>
 
-      {error && <p style={styles.error}>Error: {error}</p>}
+      {error && <p className={styles.error}>Error: {error}</p>}
 
       {translatedText && (
-        <div style={styles.translatedOutput}>
+        <div className={styles.translatedOutput}>
           <h4>Translated Text ({targetLanguage.toUpperCase()}):</h4>
           <p>{translatedText}</p>
         </div>
       )}
     </div>
   );
-};
-
-const styles = {
-  container: {
-    padding: '15px',
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    marginBottom: '20px',
-    backgroundColor: '#f9f9f9',
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '10px',
-    marginBottom: '15px',
-  },
-  label: {
-    fontWeight: 'bold',
-  },
-  select: {
-    padding: '8px',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-  },
-  button: {
-    backgroundColor: '#28a745',
-    color: 'white',
-    padding: '8px 15px',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '14px',
-  },
-  error: {
-    color: 'red',
-    marginTop: '10px',
-  },
-  translatedOutput: {
-    marginTop: '20px',
-    padding: '10px',
-    borderTop: '1px solid #eee',
-    backgroundColor: '#e9ffe9',
-    borderRadius: '4px',
-  },
 };
 
 export default Translator;

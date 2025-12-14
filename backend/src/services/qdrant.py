@@ -15,9 +15,10 @@ def get_qdrant_client():
     )
     return client
 
-def recreate_collection(collection_name: str, vector_size: int = 1536):
+def recreate_collection(collection_name: str, vector_size: int = 384):
     """
     Recreates a Qdrant collection.
+    Default vector_size is 384 for sentence-transformers 'all-MiniLM-L6-v2' model.
     """
     client = get_qdrant_client()
     client.recreate_collection(

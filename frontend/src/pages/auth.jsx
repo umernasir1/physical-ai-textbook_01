@@ -1,49 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import Layout from '@theme/Layout';
+import React, { useEffect } from 'react';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 
 function AuthPageContent() {
-  const [isLogin, setIsLogin] = useState(true);
-  // Dynamically import auth components to avoid SSR issues
-  const [authComponents, setAuthComponents] = React.useState(null);
+  // Dynamically import ModernAuth component to avoid SSR issues
+  const [ModernAuth, setModernAuth] = React.useState(null);
 
   useEffect(() => {
-    // Load auth components only on client side
-    import('../components/Auth').then((module) => {
-      setAuthComponents(module);
+    // Load ModernAuth component only on client side
+    import('../components/ModernAuth').then((module) => {
+      setModernAuth(() => module.default);
     });
   }, []);
 
-  const switchToSignup = () => setIsLogin(false);
-  const switchToLogin = () => setIsLogin(true);
-
-  if (!authComponents) {
-    return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading authentication...</div>;
+  if (!ModernAuth) {
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        color: 'white',
+        fontSize: '1.2rem',
+        fontWeight: '600'
+      }}>
+        Loading authentication...
+      </div>
+    );
   }
 
-  const { Login, Signup } = authComponents;
-
-  return (
-    <main>
-      {isLogin ? (
-        <Login switchToSignup={switchToSignup} />
-      ) : (
-        <Signup switchToLogin={switchToLogin} />
-      )}
-    </main>
-  );
+  return <ModernAuth />;
 }
 
 function AuthPage() {
   return (
-    <Layout
-      title="Authentication"
-      description="Login or Sign up to the Physical AI Textbook"
-    >
-      <BrowserOnly fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
-        {() => <AuthPageContent />}
-      </BrowserOnly>
-    </Layout>
+    <BrowserOnly fallback={
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        color: 'white',
+        fontSize: '1.2rem',
+        fontWeight: '600'
+      }}>
+        Loading...
+      </div>
+    }>
+      {() => <AuthPageContent />}
+    </BrowserOnly>
   );
 }
 

@@ -1,8 +1,9 @@
-from openai import OpenAI
+from groq import Groq
 from ..core.config import settings
 
 def get_openai_client():
-    client = OpenAI(
-        api_key=settings.OPENAI_API_KEY,
+    """Returns a Groq client (formerly OpenAI client)"""
+    client = Groq(
+        api_key=settings.GROQ_API_KEY,
     )
     return client

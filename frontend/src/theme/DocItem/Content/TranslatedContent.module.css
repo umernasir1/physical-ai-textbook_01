@@ -1,0 +1,32 @@
+.translatedContent {
+  padding: 2rem;
+  line-height: 1.8;
+  font-size: 16px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.translatedContent p {
+  margin-bottom: 1rem;
+}
+
+/* Make translated text more readable */
+.translatedContent {
+  font-family: var(--ifm-font-family-base);
+  color: var(--ifm-font-color-base);
+}
+
+/* Preserve code-like formatting if present */
+.translatedContent code {
+  background-color: var(--ifm-code-background);
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+/* Better spacing for paragraphs */
+.translatedContent > * + * {
+  margin-top: 1rem;
+}

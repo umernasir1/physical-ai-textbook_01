@@ -7,7 +7,8 @@ from passlib.context import CryptContext
 from ..core.config import settings
 
 # Password hashing configuration
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Using Argon2 - more secure and modern than bcrypt
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 # JWT configuration
 ALGORITHM = "HS256"

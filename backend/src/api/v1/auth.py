@@ -11,6 +11,7 @@ from ...services.auth import (
     verify_password,
     create_access_token,
     get_user,
+    get_password_hash,
 )
 from ...services.neon_db import (
     get_db_connection,
@@ -97,6 +98,10 @@ async def signup(user_create: UserCreate):
     del user_data_for_repo[
         "password"
     ]  # Remove plain password before passing to UserInDB
+
+    # Ensure profile_data is a dict, not None
+    if user_data_for_repo.get("profile_data") is None:
+        user_data_for_repo["profile_data"] = {}
 
     user_in_db = UserInDB(**user_data_for_repo)  # Pass the data to UserInDB directly
     user_repository.fake_users_db[user_in_db.email] = user_in_db.model_dump()

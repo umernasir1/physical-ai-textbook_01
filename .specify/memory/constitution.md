@@ -1,96 +1,55 @@
-# Physical AI Textbook Project Constitution
+# [PROJECT_NAME] Constitution
+<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
 
 ## Core Principles
 
-### I. AI-Native Content First
-All textbook content must be designed for AI-assisted learning:
-- Content is structured for retrieval-augmented generation (RAG)
-- Clear, concise explanations optimized for embedding and search
-- Practical examples that can be understood by both humans and AI agents
-- Modular design enabling personalization and adaptive learning
+### [PRINCIPLE_1_NAME]
+<!-- Example: I. Library-First -->
+[PRINCIPLE_1_DESCRIPTION]
+<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
 
-### II. User-Centered Experience
-The learning experience must prioritize accessibility and engagement:
-- Responsive design that works across all devices
-- Interactive chatbot for instant question answering
-- Personalized content based on user background and learning style
-- Multi-language support (starting with English and Urdu)
-- Text selection for contextual assistance
+### [PRINCIPLE_2_NAME]
+<!-- Example: II. CLI Interface -->
+[PRINCIPLE_2_DESCRIPTION]
+<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
 
-### III. Code Quality and Testing
-Code must be maintainable, tested, and documented:
-- Backend: FastAPI with type hints, comprehensive error handling
-- Frontend: React components with clear separation of concerns
-- Unit tests for core functionality (RAG pipeline, auth, personalization)
-- Integration tests for API endpoints
-- Linting enforced (ESLint for JS/TS, Flake8/Black for Python)
+### [PRINCIPLE_3_NAME]
+<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
+[PRINCIPLE_3_DESCRIPTION]
+<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
 
-### IV. Technical Excellence
-The stack must leverage industry-standard technologies:
-- **Frontend**: Docusaurus (React-based static site generator)
-- **Backend**: FastAPI (Python async web framework)
-- **Database**: Neon Serverless Postgres (relational data)
-- **Vector Store**: Qdrant Cloud (embeddings and similarity search)
-- **AI**: OpenAI GPT models and embeddings
-- **Auth**: better-auth.com (modern authentication)
+### [PRINCIPLE_4_NAME]
+<!-- Example: IV. Integration Testing -->
+[PRINCIPLE_4_DESCRIPTION]
+<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
 
-### V. Performance and Scalability
-The system must be performant within free-tier constraints:
-- Chatbot responses begin streaming within 3 seconds
-- Page loads complete within 2 seconds
-- Efficient embedding strategy (chunking, caching)
-- Respect rate limits and free-tier quotas
-- Lazy loading for non-critical features
+### [PRINCIPLE_5_NAME]
+<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
+[PRINCIPLE_5_DESCRIPTION]
+<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
 
-### VI. Security and Privacy
-User data must be protected:
-- Environment variables for all secrets (never commit credentials)
-- JWT tokens for authentication with secure expiration
-- HTTPS for all production deployments
-- SQL injection prevention via parameterized queries
-- XSS protection via React's built-in escaping
+### [PRINCIPLE_6_NAME]
 
-## Development Workflow
 
-### Version Control
-- Feature branches for all changes
-- Descriptive commit messages following conventional commits
-- Pull requests require passing tests before merge
-- Main branch always deployable
+[PRINCIPLE__DESCRIPTION]
 
-### Documentation Standards
-- README.md with quickstart instructions
-- API endpoints documented via OpenAPI/Swagger
-- Inline code comments for complex logic
-- Architecture decisions recorded in ADRs when significant
+## [SECTION_2_NAME]
+<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
 
-### Content Creation
-- All course modules follow the structure defined in Hackathon requirements
-- Content written in Markdown for Docusaurus compatibility
-- Each chapter includes learning objectives and practical examples
-- Technical accuracy verified through research and testing
+[SECTION_2_CONTENT]
+<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
 
-## Deployment and Operations
+## [SECTION_3_NAME]
+<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
 
-### CI/CD Pipeline
-- GitHub Actions for automated deployment
-- Deploy to GitHub Pages on merge to main
-- Backend deployed separately (containerized environment)
-- Environment-specific configurations
-
-### Monitoring
-- Error logging for backend API failures
-- User interaction tracking (anonymized)
-- Performance metrics for chatbot response times
-- Uptime monitoring for external services
+[SECTION_3_CONTENT]
+<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
 
 ## Governance
+<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-This constitution defines the standards for the Physical AI Textbook Project. All development must align with these principles:
+[GOVERNANCE_RULES]
+<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
 
-- **Constitution Supersedes**: In case of conflict, constitution principles override individual preferences
-- **Amendment Process**: Changes require documentation and team approval
-- **Compliance Verification**: All PRs must demonstrate adherence to code quality, testing, and security standards
-- **Continuous Improvement**: Regular retrospectives to refine processes and update constitution as needed
-
-**Version**: 1.0.0 | **Ratified**: 2025-12-09 | **Last Amended**: 2025-12-09
+**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
+<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->

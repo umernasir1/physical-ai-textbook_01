@@ -4,6 +4,7 @@ from ...models.user import User
 from ...core.personalization import get_personalization_recommendations
 from .auth import get_current_user
 from ...core.rag import rag_chain
+from ...services.personalization import personalize_content
 
 router = APIRouter()
 
@@ -11,6 +12,12 @@ router = APIRouter()
 # Define a request model for the chat message
 class ChatMessage(BaseModel):
     text: str
+
+
+# Request model for content personalization
+class PersonalizeRequest(BaseModel):
+    content: str
+    skill_level: str
 
 
 # User Story 2: RAG Chatbot
@@ -63,6 +70,18 @@ def chat_with_personalization(
         "personalization_recommendations": personalization_recs,
         "response": augmented_response,
     }
+
+
+@router.post("/personalize")
+async def personalize_content_endpoint(request: PersonalizeRequest):
+    """
+    Personalizes content based on the user's skill level.
+    """
+    try:
+        result = await personalize_content(request.content, request.skill_level)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/")

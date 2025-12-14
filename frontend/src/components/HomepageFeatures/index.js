@@ -1,50 +1,90 @@
 import clsx from 'clsx';
 import Heading from '@theme/Heading';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: '🤖 AI-Powered Learning',
+    icon: '🧠',
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Master robotics with AI assistance. Get instant answers, code explanations,
+        and personalized guidance through our intelligent chatbot trained on the entire curriculum.
       </>
     ),
+    link: '/docs/intro',
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: '📚 Comprehensive Curriculum',
+    icon: '📖',
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        From ROS 2 fundamentals to advanced VLA integration. Learn digital twins,
+        URDF modeling, physics simulation, and cognitive planning for humanoid robots.
       </>
     ),
+    link: '/docs/module1-ros2/introduction-to-ros2',
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: '⚡ Hands-On Projects',
+    icon: '🛠️',
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Build real-world robotics applications. Work with NVIDIA Isaac Sim,
+        implement vision-language-action models, and create fully autonomous humanoid systems.
       </>
     ),
+    link: '/docs/module4-vla/llms-and-robotics-convergence',
+  },
+  {
+    title: '🎯 Interactive Simulations',
+    icon: '🎮',
+    description: (
+      <>
+        Practice in safe virtual environments before deploying to hardware.
+        Test algorithms, debug issues, and iterate faster with digital twin technology.
+      </>
+    ),
+    link: '/docs/module2-digital-twin/physics-simulation-environment-building',
+  },
+  {
+    title: '🌟 Real-World Applications',
+    icon: '🏭',
+    description: (
+      <>
+        Learn from industry use cases. Explore how Physical AI is transforming
+        manufacturing, healthcare, logistics, and service robotics across the globe.
+      </>
+    ),
+    link: '/docs/module3-ai-robot-brain/advanced-perception-training',
+  },
+  {
+    title: '💬 Community Support',
+    icon: '👥',
+    description: (
+      <>
+        Join a vibrant community of robotics enthusiasts. Share projects,
+        get help from experts, and collaborate on cutting-edge humanoid robotics research.
+      </>
+    ),
+    link: '/blog',
   },
 ];
 
-function Feature({Svg, title, description}) {
+function Feature({title, icon, description, link, index}) {
   return (
-    <div className={clsx('col col--4')}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
-      </div>
-      <div className="text--center padding-horiz--md">
-        <Heading as="h3">{title}</Heading>
-        <p>{description}</p>
-      </div>
+    <div className={clsx('col col--4', styles.featureCol)} style={{ animationDelay: `${index * 0.1}s` }}>
+      <Link to={link} className={styles.featureCard}>
+        <div className={styles.featureIcon}>{icon}</div>
+        <div className={styles.featureContent}>
+          <Heading as="h3" className={styles.featureTitle}>{title}</Heading>
+          <p className={styles.featureDescription}>{description}</p>
+          <div className={styles.featureArrow}>
+            <span>Explore →</span>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 }
@@ -53,9 +93,17 @@ export default function HomepageFeatures() {
   return (
     <section className={styles.features}>
       <div className="container">
+        <div className={styles.featuresHeader}>
+          <Heading as="h2" className={styles.featuresTitle}>
+            Why Choose This Textbook?
+          </Heading>
+          <p className={styles.featuresSubtitle}>
+            Everything you need to master Physical AI and Humanoid Robotics in one comprehensive platform
+          </p>
+        </div>
         <div className="row">
           {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+            <Feature key={idx} {...props} index={idx} />
           ))}
         </div>
       </div>
