@@ -39,7 +39,7 @@ const Login = ({ switchToSignup }) => {
       localStorage.setItem('access_token', data.access_token);
       // Redirect or update global state to reflect logged-in status
       console.log('Login successful:', data);
-      history.push('/physical-ai-textbook/'); // Redirect to home or dashboard after login
+      history.push('/-physical-ai-textbook_01/'); // Redirect to home or dashboard after login
     } catch (err) {
       setError(err.message);
       console.error('Login error:', err);
@@ -122,7 +122,7 @@ const Signup = ({ switchToLogin }) => {
       localStorage.setItem('access_token', data.access_token);
       setSuccess(true);
       console.log('Signup successful:', data);
-      history.push('/physical-ai-textbook/'); // Redirect to home or dashboard after signup
+      history.push('/-physical-ai-textbook_01/'); // Redirect to home or dashboard after signup
     } catch (err) {
       setError(err.message);
       console.error('Signup error:', err);

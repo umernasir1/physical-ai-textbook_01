@@ -145,7 +145,7 @@ const ModernAuth = () => {
 
         // Success animation
         showToast('Login successful!', 'success');
-        setTimeout(() => history.push('/physical-ai-textbook/'), 1500);
+        setTimeout(() => history.push('/-physical-ai-textbook_01/'), 1500);
       } else {
         // Signup
         const response = await fetch(`${API_BASE_URL}/auth/signup`, {
@@ -175,7 +175,7 @@ const ModernAuth = () => {
 
         // Success animation
         showToast('Account created successfully!', 'success');
-        setTimeout(() => history.push('/physical-ai-textbook/'), 1500);
+        setTimeout(() => history.push('/-physical-ai-textbook_01/'), 1500);
       }
     } catch (error) {
       console.error('Auth error:', error);
