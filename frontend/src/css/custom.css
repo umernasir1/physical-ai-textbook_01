@@ -166,6 +166,32 @@ html[data-theme='dark'] {
   animation: expandWidth 0.3s ease-out;
 }
 
+/* Fix navbar wrapping */
+.navbar__title {
+  white-space: nowrap;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.navbar__logo {
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+
+.navbar__items {
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+}
+
+.navbar__item {
+  white-space: nowrap;
+}
+
+.navbar__link {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.95rem;
+}
+
 @keyframes expandWidth {
   from { width: 0; }
   to { width: 100%; }
@@ -535,8 +561,36 @@ code {
     backdrop-filter: blur(20px);
   }
 
+  .navbar__title {
+    font-size: 1.1rem;
+  }
+
+  .navbar__logo {
+    height: 1.75rem;
+  }
+
+  .navbar__link {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
+  }
+
   .menu__link {
     padding: 12px 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar__title {
+    font-size: 1rem;
+  }
+
+  .navbar__logo {
+    height: 1.5rem;
+  }
+
+  .navbar__link {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem;
   }
 }
 
