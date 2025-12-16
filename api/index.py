@@ -3,13 +3,33 @@
 
 import sys
 import os
+from pathlib import Path
+
+# Get the root directory (parent of api/)
+root_dir = Path(__file__).parent.parent
+backend_path = root_dir / 'backend'
 
 # Add backend directory to Python path
-backend_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'backend')
-sys.path.insert(0, backend_path)
+sys.path.insert(0, str(backend_path))
 
 # Import the FastAPI app from backend
-from src.main import app
+try:
+    from src.main import app as fastapi_app
+    # Explicitly assign to 'app' for Vercel
+    app = fastapi_app
+except ImportError as e:
+    # Fallback: create a minimal FastAPI app if import fails
+    from fastapi import FastAPI
+    app = FastAPI()
 
-# Vercel expects the variable to be named 'app'
-# The imported app is already configured and ready to use
+    @app.get("/")
+    async def root():
+        return {
+            "error": "Backend import failed",
+            "message": str(e),
+            "backend_path": str(backend_path),
+            "sys_path": sys.path[:3]
+        }
+
+# Ensure app is exported for Vercel
+__all__ = ['app']
