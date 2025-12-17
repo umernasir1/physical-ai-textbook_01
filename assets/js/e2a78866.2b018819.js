@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkphysical_ai_textbook=globalThis.webpackChunkphysical_ai_textbook||[]).push([[3190],{7498:a=>{a.exports=JSON.parse('{"metadata":{"permalink":"/-physical-ai-textbook_01/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
