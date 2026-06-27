@@ -24,7 +24,7 @@ const FeatureList = [
         URDF modeling, physics simulation, and cognitive planning for humanoid robots.
       </>
     ),
-    link: '/docs/module1-ros2/introduction-to-ros2',
+    link: '/docs/module1-ros2/introduction-to-physical-ai',
   },
   {
     title: '⚡ Hands-On Projects',

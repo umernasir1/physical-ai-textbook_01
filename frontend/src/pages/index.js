@@ -51,7 +51,7 @@ function HomepageHeader() {
               </Link>
               <Link
                 className={clsx('button button--secondary button--lg', styles.secondaryButton)}
-                to="/docs/module1-ros2/introduction-to-ros2">
+                to="/docs/module1-ros2/introduction-to-physical-ai">
                 Explore Modules
               </Link>
             </div>

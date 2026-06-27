@@ -20,10 +20,10 @@ const config = {
   },
 
   // Set the production url of your site here
-  url: 'https://umernasir1.github.io',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/physical-ai-textbook_01/',
+  url: 'https://physical-ai-textbook-sand.vercel.app',
+  // Set the /<baseUrl>/ pathname under which your site is served.
+  // Deployed on Vercel at the domain root, so baseUrl is '/'.
+  baseUrl: '/',
 
   // Add custom fields
   customFields: {
@@ -121,7 +121,7 @@ const config = {
               },
               {
                 label: 'ROS 2 Fundamentals',
-                to: '/docs/module1-ros2/introduction-to-ros2',
+                to: '/docs/module1-ros2/introduction-to-physical-ai',
               },
               {
                 label: 'Digital Twin & Simulation',
