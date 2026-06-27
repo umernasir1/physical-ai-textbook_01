@@ -54,10 +54,9 @@ export const AuthProvider = ({ children }) => {
     signupSuccess,
   };
 
-  if (loading) {
-    return <div>Loading authentication...</div>; // Or a spinner
-  }
-
+  // Never block rendering of the whole app on the auth check (which is just a
+  // localStorage lookup that runs client-side). Consumers can read `loading`
+  // from context if they need to wait.
   return (
     <AuthContext.Provider value={contextValue}>
       {children}
