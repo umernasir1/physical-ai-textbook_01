@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import './styles.css';
 
 export default function ChatbotWidget() {
+  const { siteConfig } = useDocusaurusContext();
+  const API_BASE_URL =
+    siteConfig.customFields?.BACKEND_API_URL || 'http://localhost:8000/api/v1';
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
@@ -66,7 +70,7 @@ export default function ChatbotWidget() {
 
     try {
       // Call your backend API
-      const response = await fetch('http://localhost:8000/api/v1/chat', {
+      const response = await fetch(`${API_BASE_URL}/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +93,7 @@ export default function ChatbotWidget() {
       console.error('Error sending message:', error);
       setTimeout(() => {
         setIsTyping(false);
-        addMessage('Sorry, I encountered an error. Please make sure the backend is running on http://localhost:8000');
+        addMessage('Sorry, I encountered an error reaching the assistant. Please try again in a moment.');
       }, 500);
     }
   };

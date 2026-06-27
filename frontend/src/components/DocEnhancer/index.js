@@ -4,7 +4,7 @@ import './styles.css';
 
 export default function DocEnhancer() {
   const {siteConfig} = useDocusaurusContext();
-  const API_BASE_URL = siteConfig.customFields?.BACKEND_API_URL || 'http://localhost:8000/v1';
+  const API_BASE_URL = siteConfig.customFields?.BACKEND_API_URL || 'http://localhost:8000/api/v1';
 
   const [showPanel, setShowPanel] = useState(true);
   const [isPersonalizing, setIsPersonalizing] = useState(false);

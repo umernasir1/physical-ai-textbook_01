@@ -10,11 +10,14 @@ origins = [
     "http://localhost",
     "http://localhost:3000", # Default Docusaurus port
     "https://umernasir1.github.io", # Production GitHub Pages
+    "https://physical-ai-textbook-sand.vercel.app", # Production Vercel
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
+    # Allow Vercel preview/branch deployments (e.g. *-umernasir1s-projects.vercel.app)
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
