@@ -2,10 +2,12 @@ from ..services.openai import get_openai_client
 from ..services.qdrant import get_qdrant_client
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from sentence_transformers import SentenceTransformer
+from fastembed import TextEmbedding
 
-# Initialize embedding model (using open-source model for embeddings)
-embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
+# Initialize embedding model. FastEmbed runs the same all-MiniLM-L6-v2 model
+# via ONNX (384-dim output, no PyTorch), so it stays light enough for small
+# instances while producing vectors compatible with the existing collection.
+embedding_model = TextEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 
 def get_text_splitter():
@@ -17,9 +19,8 @@ def get_text_splitter():
 
 
 def get_embeddings(texts):
-    """Generate embeddings using sentence-transformers (open-source)"""
-    embeddings = embedding_model.encode(texts, convert_to_numpy=True)
-    return embeddings.tolist()
+    """Generate 384-dim embeddings using FastEmbed (ONNX, open-source)."""
+    return [embedding.tolist() for embedding in embedding_model.embed(list(texts))]
 
 
 def rag_chain(query: str):
