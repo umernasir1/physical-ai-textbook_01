@@ -1,0 +1,34 @@
+# Render Blueprint for the Physical AI Textbook FastAPI backend.
+#
+# Deploy: Render Dashboard -> New + -> Blueprint -> connect this repo.
+# Render reads this file, creates the service, and prompts for the secrets
+# marked `sync: false` below (enter your existing Groq / Qdrant / Neon values).
+services:
+  - type: web
+    name: physical-ai-textbook-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      # Pin Python so onnxruntime / psycopg2-binary wheels resolve cleanly.
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      # JWT signing key: let Render generate a strong random value.
+      - key: SECRET_KEY
+        generateValue: true
+      # Secrets you supply in the Render UI at deploy time:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: QDRANT_URL
+        sync: false
+      - key: QDRANT_API_KEY
+        sync: false
+      - key: NEON_DATABASE_URL
+        sync: false
